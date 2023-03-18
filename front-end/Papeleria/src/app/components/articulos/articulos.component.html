@@ -1,0 +1,39 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Administrador de articulos</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <div class="filter-container">
+      <form [formGroup]="formGroupFilter">
+        <mat-form-field appearance="fill">
+          <mat-label>Nombre del articulo</mat-label>
+          <input matInput formControlName="nombreArticulo" type="text">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Descripcion</mat-label>
+          <input matInput formControlName="descripcion" type="text">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Precio del articulo</mat-label>
+          <input matInput formControlName="precio" type="number">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Cantidad disponible</mat-label>
+          <input matInput formControlName="cantidad" type="number">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Categoria</mat-label>
+          <mat-select formControlName="categoria">
+            <mat-option value=""></mat-option>
+          </mat-select>
+        </mat-form-field>
+        <div>
+          <button mat-raised-button color="primary">Buscar</button>
+        </div>
+      </form>
+    </div>
+    <div class="table-container">
+
+    </div>
+  </mat-card-content>
+</mat-card>

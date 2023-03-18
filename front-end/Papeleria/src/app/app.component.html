@@ -1,0 +1,14 @@
+<mat-drawer-container class="container-sidenav">
+  <mat-drawer class="title" mode="side" opened>
+    <h2>Administrador</h2>
+    <div class="items-nav" *ngFor="let items of itemsNav" (click)="navigate(items.route)">
+      <span [matTooltip]="items.tooltip">
+        <mat-icon>{{ items.icon }}</mat-icon>
+        {{ items.title }}
+      </span>
+    </div>
+  </mat-drawer>
+  <mat-drawer-content>
+    <router-outlet></router-outlet>
+  </mat-drawer-content>
+</mat-drawer-container>

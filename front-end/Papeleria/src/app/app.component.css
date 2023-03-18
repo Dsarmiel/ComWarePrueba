@@ -1,0 +1,13 @@
+.container-sidenav {
+  height: 100%;
+}
+mat-drawer {
+  padding: 10px;
+}
+.items-nav{
+  margin: 10px 0;
+  cursor: pointer;
+}
+mat-icon{
+  color: rgba(23, 96, 180, 0.815);
+}
