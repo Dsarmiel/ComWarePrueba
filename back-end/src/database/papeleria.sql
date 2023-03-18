@@ -1,4 +1,3 @@
-
 -- Creación de tabla para proveedores
 CREATE TABLE proveedores (
   id_proveedor INT PRIMARY KEY IDENTITY(1,1),
@@ -8,13 +7,21 @@ CREATE TABLE proveedores (
   email VARCHAR(50)
 );
 
+-- Creación de tabla para categorías
+CREATE TABLE categorias (
+  id_categoria INT PRIMARY KEY IDENTITY(1,1),
+  nombre_categoria VARCHAR(50) NOT NULL
+);
+
 -- Creación de tabla para artículos
 CREATE TABLE articulos (
   id_articulo INT PRIMARY KEY IDENTITY(1,1),
   nombre_articulo VARCHAR(50) NOT NULL,
   descripcion VARCHAR(100),
   precio DECIMAL(10, 2) NOT NULL,
-  cantidad_disponible INT NOT NULL
+  cantidad_disponible INT NOT NULL,
+  id_categoria INT,
+  FOREIGN KEY (id_categoria) REFERENCES categorias(id_categoria)
 );
 
 -- Creación de tabla para relación muchos a muchos entre proveedores y artículos

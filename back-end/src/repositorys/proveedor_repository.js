@@ -85,18 +85,6 @@ class ProveedorRepository {
             throw error;
         }
      }
-    async delete() {
-        try {
-            const pool = await poolDB;
-            const result = await pool
-                .request()
-                .input('id_proveedor', sql.Int, id)
-                .query("DELETE FROM proveedores WHERE id_proveedor = @id_proveedor");
-            return result.recordset;
-        } catch (error) {
-            throw error;
-        }
-     }
 }
 
 module.exports = ProveedorRepository;

@@ -2,6 +2,7 @@ const FacturacionDTO = require('../dto/facturacion_dto')
 const { poolDB, sql } = require('../config/database');
 const FacturacionCreateDTO = require('../dto/factuacion_create_dto');
 const FacturacionUpdateDTO = require('../dto/facturacion_update_dto');
+const FacturacionFilterDTO = require('../dto/facturacion_filter_dto');
 class FacturaRepository {
     async getAll() {
         try {
@@ -41,10 +42,11 @@ class FacturaRepository {
             throw error;
         }
     }
-    async getByFilter(filtros) {
+    async getByFilter(filtrosDTO) {
         try {
             const pool = await poolDB;
             const whereList = [];
+            const filtros = new FacturacionFilterDTO(filtrosDTO);
             const query = `
             SELECT  rf.*, 
             JSON_OBJECT('id', pr.id_proveedor, 'nombre', pr.nombre) as proveedor,
@@ -143,18 +145,6 @@ class FacturaRepository {
                 );
             return result.recordset;
         }catch(error){
-            throw error;
-        }
-    }
-    async delete(id) {
-        try {
-            const pool = await poolDB;
-            const result = await pool
-                .request()
-                .input('id_registro', sql.Int, id)
-                .query("DELETE FROM registro_facturacion WHERE id_registro = @id_registro");
-            return result.recordset;
-        } catch (error) {
             throw error;
         }
     }

@@ -7,6 +7,5 @@ router.get('/filter', articuloController.getByFilter);
 router.get('/:id', articuloController.getById);
 router.post('/', articuloController.create);
 router.put('/:id', articuloController.update);
-router.delete('/:id', articuloController.delete);
 
 module.exports = router;

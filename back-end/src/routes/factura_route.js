@@ -4,8 +4,8 @@ const facturaController = require('../controllers/factura_controller')
 
 router.get('/', facturaController.getAll);
 router.get('/:id', facturaController.getById);
+router.get('/filter', facturaController.getByFilter);
 router.post('/', facturaController.create);
 router.put('/:id', facturaController.update);
-router.delete('/:id', facturaController.delete);
 
 module.exports = router;

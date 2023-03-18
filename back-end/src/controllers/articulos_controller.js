@@ -54,19 +54,6 @@ class ArticulosController {
             next(error);
         }
     }
-
-    async delete(req, res, next) {
-        try {
-            const articuloFind = await articulosRepository.getById(req.params.id);
-            if (!articuloFind) {
-                res.status(404).json({ mensaje: 'Articulo no encontrado' });
-            }
-            await articulosRepository.delete(req.params.id);
-            res.sendStatus(204);
-        } catch (error) {
-            next(error);
-        }
-    }
 }
 
 module.exports = new ArticulosController();

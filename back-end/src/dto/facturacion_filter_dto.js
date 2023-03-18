@@ -1,6 +1,5 @@
 class FacturacionFilterDTO {
     constructor({
-        idRegistro,
         idProveedor,
         idArticulo,
         fechaCompra,

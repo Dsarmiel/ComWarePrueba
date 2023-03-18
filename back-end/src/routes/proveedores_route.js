@@ -7,6 +7,5 @@ router.get('/:id', proveedorController.getById);
 router.get('/filter', proveedorController.getByFilter);
 router.post('/', proveedorController.create);
 router.put('/:id', proveedorController.update);
-router.delete('/:id', proveedorController.delete);
 
 module.exports = router;

@@ -42,6 +42,12 @@ class ArticulosRepository {
             if (filtros.cantidad) {
                 whereList.push(`cantidad_disponible = '${filtros.cantidad}'`);
             }
+            if (filtros.cantidad) {
+                whereList.push(`cantidad_disponible = '${filtros.cantidad}'`);
+            }
+            if (filtros.categoria) {
+                whereList.push(`id_categoria = '${filtros.categoria}'`);
+            }
             if (whereList.length > 0) {
                 query += ` WHERE ${whereList.join(' AND ')}`;
             }
@@ -60,6 +66,7 @@ class ArticulosRepository {
                 .input('descripcion', sql.VarChar, articulo.descripcion)
                 .input('precio', sql.Decimal, articulo.precio)
                 .input('cantidad_disponible', sql.Int, articulo.cantidad)
+                .input('id_categoria', sql.Int, articulo.id_categoria)
                 .query(
                     'INSERT INTO articulos (nombre_articulo, descripcion, precio, cantidad_disponible) VALUES (@nombre_articulo, @descripcion, @precio, @cantidad_disponible)'
                 );
@@ -77,23 +84,11 @@ class ArticulosRepository {
                 .input('descripcion', sql.VarChar, articulo.descripcion)
                 .input('precio', sql.Decimal, articulo.precio)
                 .input('cantidad_disponible', sql.Int, articulo.cantidad)
+                .input('id_categoria', sql.Int, articulo.id_categoria)
                 .input('id_articulo', sql.Int, id)
                 .query(
                     'UPDATE articulos SET nombre_articulo = @nombre_articulo, descripcion = @descripcion, precio = @precio, cantidad_disponible = @cantidad_disponible WHERE id_articulo = @id_articulo'
                 );
-            return result.recordset;
-        } catch (error) {
-            throw error;
-        }
-
-    }
-    async delete(id) {
-        try {
-            const pool = await poolDB;
-            const result = await pool
-                .request()
-                .input('id_articulo', sql.Int, id)
-                .query("DELETE FROM articulos WHERE id_articulo = @id_articulo");
             return result.recordset;
         } catch (error) {
             throw error;

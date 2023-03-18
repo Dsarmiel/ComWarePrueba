@@ -8,7 +8,6 @@ class FacturacionUpdateDTO {
       precioTotalCompra,
       cantidadCompra,
     }) {
-      this.idRegistro = idRegistro;
       this.idProveedor = idProveedor;
       this.idArticulo = idArticulo;
       this.fechaCompra = fechaCompra;

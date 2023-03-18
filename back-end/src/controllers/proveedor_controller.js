@@ -50,18 +50,6 @@ class ProveedorController {
             next(error);
         }
     }
-    async delete(req, res, next) {
-        try {
-            const proveedorFind = await proveedorRepository.getById(req.params.id);
-            if (!proveedorFind) {
-                res.status(404).json({ mensaje: 'Articulo no encontrado' });
-            }
-            await proveedorRepository.delete(req.params.id);
-            res.sendStatus(204);
-        } catch (error) {
-            next(error);
-        }
-    }
 }
 
 module.exports = new ProveedorController();
