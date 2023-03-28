@@ -1,0 +1,35 @@
+<h1 mat-dialog-title>{{ title }} articulo</h1>
+<div mat-dialog-content>
+  <form [formGroup]="formGroup">
+    <mat-grid-list cols="2" rowHeight="2:1">
+      <mat-grid-tile>
+        <mat-form-field appearance="fill">
+          <mat-label>Nombre del proveedor</mat-label>
+          <input matInput formControlName="nombreProveedor" type="text">
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-form-field appearance="fill">
+          <mat-label>Direccion del proveedor</mat-label>
+          <input matInput formControlName="direccion" type="text">
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-form-field appearance="fill">
+          <mat-label>Telefono</mat-label>
+          <input matInput formControlName="telefono" type="number">
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-form-field appearance="fill">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" type="email">
+        </mat-form-field>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button mat-dialog-close>Cerrar</button>
+  <button mat-raised-button color="primary" (click)="createUpdateProveedor()">{{ title }}</button>
+</div>

@@ -6,6 +6,7 @@ class ProveedorRepository {
         try {
             const pool = await poolDB;
             const result = await pool.request().query("SELECT * FROM proveedores");
+            console.log(result)
             return result.recordset.map((row) => new Proveedor(row));
         } catch (error) {
             throw error;
@@ -69,6 +70,7 @@ class ProveedorRepository {
     }
     async update(id, proveedor) {
         try {
+            console.log(proveedor)
             const pool = await poolDB;
             const result = await pool
                 .request()
@@ -78,7 +80,7 @@ class ProveedorRepository {
                 .input('telefono', sql.Numeric, proveedor.telefono)
                 .input('email', sql.VarChar, proveedor.email)
                 .query(
-                    'INSERT proveedores SET nombre_proveedor = @nombre_proveedor, direccion = @direccion, telefono = @telefono, email = @email WHERE id_proveedor = @id_proveedor"'
+                    'UPDATE proveedores SET nombre_proveedor = @nombre_proveedor, direccion = @direccion, telefono = @telefono, email = @email WHERE id_proveedor = @id_proveedor'
                 );
             return result.recordset;
         } catch (error) {

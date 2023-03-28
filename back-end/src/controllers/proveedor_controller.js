@@ -27,6 +27,7 @@ class ProveedorController {
             const proveedorList = await proveedorRepository.getByFilter(filtros);
             res.json(proveedorList);
         } catch (error) {
+            console.log(error)
             next(error);
         }
     }

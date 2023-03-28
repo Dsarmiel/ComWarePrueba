@@ -13,6 +13,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { CategoriaFormComponent } from './components/categorias/categoria-form/categoria-form.component';
 import { ArticuloFormComponent } from './components/articulos/articulo-form/articulo-form.component';
+import { ProveedorFormComponent } from './components/proveedores/proveedor-form/proveedor-form.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { ArticuloFormComponent } from './components/articulos/articulo-form/arti
     FacturasComponent,
     CategoriaFormComponent,
     ArticuloFormComponent,
+    ProveedorFormComponent,
   ],
   imports: [
     BrowserModule,

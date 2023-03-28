@@ -1,1 +1,64 @@
-<p>proveedores works!</p>
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Administrador de proveedores</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <div class="filter-container">
+      <form [formGroup]="formGroupFilter">
+        <mat-form-field appearance="fill">
+          <mat-label>Nombre del proveedor</mat-label>
+          <input matInput formControlName="nombreProveedor" type="text">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Direccion del proveedor</mat-label>
+          <input matInput formControlName="direccion" type="text">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Telefono</mat-label>
+          <input matInput formControlName="telefono" type="number">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" type="email">
+        </mat-form-field>
+        <div class="container-actions">
+          <button mat-raised-button color="primary" (click)="getFilter()">Buscar</button>
+          <button mat-raised-button color="primary" matTooltip="Crear una nueva categoria"
+            (click)="openModalCreate()">Crear categoria</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="table-container">
+      <table mat-table [dataSource]="proveedorList" class="mat-elevation-z8">
+        <ng-container matColumnDef="nombreProveedor">
+          <th mat-header-cell *matHeaderCellDef> Nombre del proveedor </th>
+          <td mat-cell *matCellDef="let element"> {{element.nombreProveedor}} </td>
+        </ng-container>
+        <ng-container matColumnDef="direccion">
+          <th mat-header-cell *matHeaderCellDef> Direccion </th>
+          <td mat-cell *matCellDef="let element"> {{element.direccion}} </td>
+        </ng-container>
+        <ng-container matColumnDef="telefono">
+          <th mat-header-cell *matHeaderCellDef> Telefono </th>
+          <td mat-cell *matCellDef="let element"> {{element.telefono}} </td>
+        </ng-container>
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef> Email </th>
+          <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+        </ng-container>
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef> Acciones </th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-raised-button color="primary" matTooltip="Editar un proveedor existente"
+              (click)="openModalUpdate(element)">
+              <mat-icon>edit</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+  </mat-card-content>
+</mat-card>

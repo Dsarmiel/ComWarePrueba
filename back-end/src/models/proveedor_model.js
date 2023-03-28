@@ -1,7 +1,7 @@
 class Proveedor {
-  constructor({idProveedor, nombreProveedor, direccion, telefono, email}) {
-    this.idProveedor = idProveedor;
-    this.nombreProveedor = nombreProveedor;
+  constructor({id_proveedor, nombre_proveedor, direccion, telefono, email}) {
+    this.idProveedor = id_proveedor;
+    this.nombreProveedor = nombre_proveedor;
     this.direccion = direccion;
     this.telefono = telefono;
     this.email = email;

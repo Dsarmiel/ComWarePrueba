@@ -36,13 +36,13 @@ export class ArticuloFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.initComponent();
+  }
+  initComponent() {
+    this.getAllCategorias();
     if(this.dataUpdate){
       this.isUpdate();
       this.title = 'Actualizar';
     }
-  }
-  initComponent() {
-    this.getAllCategorias();
   }
   createUpdateArticulo(){
     const articulo: ArticuloDTO = {
