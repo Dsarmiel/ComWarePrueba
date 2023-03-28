@@ -1,7 +1,7 @@
 class Categoria {
-    constructor({ idCategoria, nombreCategoria }) {
-        this.idCategoria = idCategoria;
-        this.nombreCategoria = nombreCategoria;
+    constructor({ id_categoria, nombre_categoria }) {
+        this.idCategoria = id_categoria;
+        this.nombreCategoria = nombre_categoria;
     }
     get getIdCategoria() {
         return this.idCategoria;

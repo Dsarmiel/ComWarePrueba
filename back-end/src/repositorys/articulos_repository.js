@@ -51,6 +51,7 @@ class ArticulosRepository {
             if (whereList.length > 0) {
                 query += ` WHERE ${whereList.join(' AND ')}`;
             }
+            console.log(query)
             const result = await pool.request().query(query);
             return result.recordset.map((row) => new Articulo(row));
         } catch (error) {
@@ -66,9 +67,9 @@ class ArticulosRepository {
                 .input('descripcion', sql.VarChar, articulo.descripcion)
                 .input('precio', sql.Decimal, articulo.precio)
                 .input('cantidad_disponible', sql.Int, articulo.cantidad)
-                .input('id_categoria', sql.Int, articulo.id_categoria)
+                .input('id_categoria', sql.Int, articulo.categoria)
                 .query(
-                    'INSERT INTO articulos (nombre_articulo, descripcion, precio, cantidad_disponible) VALUES (@nombre_articulo, @descripcion, @precio, @cantidad_disponible)'
+                    'INSERT INTO articulos (nombre_articulo, descripcion, precio, cantidad_disponible, id_categoria) VALUES (@nombre_articulo, @descripcion, @precio, @cantidad_disponible, @id_categoria)'
                 );
             return result.recordset;
         } catch (error) {
@@ -84,10 +85,10 @@ class ArticulosRepository {
                 .input('descripcion', sql.VarChar, articulo.descripcion)
                 .input('precio', sql.Decimal, articulo.precio)
                 .input('cantidad_disponible', sql.Int, articulo.cantidad)
-                .input('id_categoria', sql.Int, articulo.id_categoria)
+                .input('id_categoria', sql.Int, articulo.categoria)
                 .input('id_articulo', sql.Int, id)
                 .query(
-                    'UPDATE articulos SET nombre_articulo = @nombre_articulo, descripcion = @descripcion, precio = @precio, cantidad_disponible = @cantidad_disponible WHERE id_articulo = @id_articulo'
+                    'UPDATE articulos SET nombre_articulo = @nombre_articulo, descripcion = @descripcion, precio = @precio, cantidad_disponible = @cantidad_disponible, id_categoria = @id_categoria WHERE id_articulo = @id_articulo'
                 );
             return result.recordset;
         } catch (error) {

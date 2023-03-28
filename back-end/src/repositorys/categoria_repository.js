@@ -42,8 +42,8 @@ class CategoriaRepository {
     async update(id, categoriaDto) {
         try {
             const pool = await poolDB;
-            const result = await pool
             const categoria = new CategoriaDTO(categoriaDto)
+            const result = await pool
                 .request()
                 .input('nombre_categoria', sql.VarChar, categoria.nombreCategoria)
                 .input('id_categoria', sql.Int, id)

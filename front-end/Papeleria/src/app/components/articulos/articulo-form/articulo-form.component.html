@@ -1,0 +1,46 @@
+<h1 mat-dialog-title>{{ title }} articulo</h1>
+<div mat-dialog-content>
+  <form [formGroup]="formGroup">
+    <mat-grid-list cols="2" rowHeight="2:1">
+      <mat-grid-tile>
+        <mat-form-field appearance="fill">
+          <mat-label>Nombre del articulo</mat-label>
+          <input matInput formControlName="nombreArticulo" type="text">
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-form-field appearance="fill">
+          <mat-label>Descripcion</mat-label>
+          <input matInput formControlName="descripcion" type="text">
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-form-field appearance="fill">
+          <mat-label>Precio del articulo</mat-label>
+          <input matInput formControlName="precio" type="number">
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-form-field appearance="fill">
+          <mat-label>Cantidad disponible</mat-label>
+          <input matInput formControlName="cantidad" type="number">
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-form-field appearance="fill">
+          <mat-label>Categoria</mat-label>
+          <mat-select formControlName="categoria">
+            <mat-option value=""></mat-option>
+            <mat-option *ngFor="let categoria of categoriaList" [value]="categoria.idCategoria">
+              {{ categoria.nombreCategoria }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button mat-dialog-close>Cerrar</button>
+  <button mat-raised-button color="primary" (click)="createUpdateArticulo()">{{ title }}</button>
+</div>

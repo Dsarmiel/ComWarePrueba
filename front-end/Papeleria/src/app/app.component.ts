@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { listItemsNav } from './const/list-Items-nav.const';
-import { ItemsNav } from './interfaces/items-nav.iterface';
+import { ItemsNav } from './interfaces/items-nav.interface';
 
 @Component({
   selector: 'app-root',

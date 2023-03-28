@@ -3,7 +3,7 @@ class CategoriaDTO {
         this.nombreCategoria = nombreCategoria;
     }
     get getNombreCategoria() {
-        return this.idCategoria;
+        return this.nombreCategoria;
     }
     set setNomebreCategoria(nombreCategoria) {
         this.nombreCategoria = nombreCategoria;

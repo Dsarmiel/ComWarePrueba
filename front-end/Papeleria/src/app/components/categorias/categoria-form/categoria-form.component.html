@@ -1,0 +1,11 @@
+<h1 mat-dialog-title>{{ title }} categoria</h1>
+<div mat-dialog-content>
+  <mat-form-field appearance="fill">
+    <mat-label>Nombre del articulo</mat-label>
+    <input matInput [(ngModel)]="nombreCategoria" type="text">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button mat-dialog-close>Cerrar</button>
+  <button mat-raised-button color="primary" (click)="creeateUpdateCategoria()">{{ title }}</button>
+</div>

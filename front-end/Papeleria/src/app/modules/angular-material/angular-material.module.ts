@@ -12,11 +12,11 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
+import { MatTableModule } from '@angular/material/table';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 @NgModule({
-  imports: [
-    CommonModule,
-  ],
+  imports: [CommonModule],
   exports: [
     MatDatepickerModule,
     MatButtonModule,
@@ -31,7 +31,9 @@ import { MatInputModule } from '@angular/material/input';
     MatTooltipModule,
     MatSelectModule,
     MatFormFieldModule,
-    MatInputModule
-  ]
+    MatInputModule,
+    MatTableModule,
+    MatGridListModule,
+  ],
 })
 export class AngularMaterialModule {}

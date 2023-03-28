@@ -1,4 +1,4 @@
-import { ItemsNav } from '../interfaces/items-nav.iterface';
+import { ItemsNav } from '../interfaces/items-nav.interface';
 
 export const listItemsNav: Array<ItemsNav> = [
   {title: 'Proveedores', icon: 'supervisor_account', tooltip: 'Administrador de proveedores', route: '/proveedor'},

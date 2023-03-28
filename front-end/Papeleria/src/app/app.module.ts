@@ -10,6 +10,9 @@ import { CategoriasComponent } from './components/categorias/categorias.componen
 import { FacturasComponent } from './components/facturas/facturas.component';
 import { AngularMaterialModule } from './modules/angular-material/angular-material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { CategoriaFormComponent } from './components/categorias/categoria-form/categoria-form.component';
+import { ArticuloFormComponent } from './components/articulos/articulo-form/articulo-form.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +20,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ArticulosComponent,
     ProveedoresComponent,
     CategoriasComponent,
-    FacturasComponent
+    FacturasComponent,
+    CategoriaFormComponent,
+    ArticuloFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -25,7 +30,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     BrowserAnimationsModule,
     AngularMaterialModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
