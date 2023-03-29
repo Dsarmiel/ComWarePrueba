@@ -1,0 +1,100 @@
+<h1 mat-dialog-title>Crear factura</h1>
+<div mat-dialog-content>
+  <form [formGroup]="formGroup">
+    <mat-grid-list cols="3" rowHeight="3:1">
+      <mat-grid-tile>
+        <mat-form-field appearance="fill">
+          <mat-label>Proveedores</mat-label>
+          <mat-select formControlName="idProveedor">
+            <mat-option value=""></mat-option>
+            <mat-option *ngFor="let proveedor of proveedorList" [value]="proveedor.idProveedor">
+              {{ proveedor.nombreProveedor }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-form-field appearance="fill">
+          <mat-label>Fecha compra</mat-label>
+          <input matInput [matDatepicker]="fechaCompraPicker" formControlName="fechaCompra">
+          <mat-datepicker-toggle matSuffix [for]="fechaCompraPicker"></mat-datepicker-toggle>
+          <mat-datepicker #fechaCompraPicker></mat-datepicker>
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-form-field appearance="fill">
+          <mat-label>Fecha entrega</mat-label>
+          <input matInput [matDatepicker]="fechaEntregaPicker" formControlName="fechaEntrega">
+          <mat-datepicker-toggle matSuffix [for]="fechaEntregaPicker"></mat-datepicker-toggle>
+          <mat-datepicker #fechaEntregaPicker></mat-datepicker>
+        </mat-form-field>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </form>
+  <ng-container *ngIf="articulosSelect.length > 0">
+    <div class="table-container">
+      <table #tableArticulos mat-table [dataSource]="articulosSelect" class="mat-elevation-z8">
+        <ng-container matColumnDef="articulo">
+          <th mat-header-cell *matHeaderCellDef> Articulo </th>
+          <td mat-cell *matCellDef="let element"> {{ getArticuloName(element.idArticulo) }} </td>
+        </ng-container>
+        <ng-container matColumnDef="cantidadCompra">
+          <th mat-header-cell *matHeaderCellDef> Cantidad de unidades compradas </th>
+          <td mat-cell *matCellDef="let element"> {{element.cantidadCompra}} </td>
+        </ng-container>
+        <ng-container matColumnDef="precioUnidadCompra">
+          <th mat-header-cell *matHeaderCellDef> Precio por unidad </th>
+          <td mat-cell *matCellDef="let element"> {{element.precioUnidadCompra}} </td>
+        </ng-container>
+        <ng-container matColumnDef="precioTotalCompra">
+          <th mat-header-cell *matHeaderCellDef> Total de la compra del articulo </th>
+          <td mat-cell *matCellDef="let element"> {{element.precioTotalCompra}} </td>
+        </ng-container>
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef> Acciones </th>
+          <td mat-cell *matCellDef="let element; index as i">
+            <button mat-raised-button color="primary" matTooltip="Eliminar este articulo de la lista"
+              (click)="deleteArticulo(i)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+  </ng-container>
+  <form [formGroup]="formGroupArticulos">
+    <mat-grid-list cols="5" rowHeight="5:1">
+      <mat-form-field appearance="fill">
+        <mat-label>Articulos</mat-label>
+        <mat-select formControlName="idArticulo">
+          <mat-option value=""></mat-option>
+          <mat-option *ngFor="let articulos of articulosList" [value]="articulos.id_articulo">
+            {{ articulos.nombre_articulo }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Cantidad de articulos comprados</mat-label>
+        <input matInput formControlName="cantidadCompra" type="number" (change)="calculatePriceTotal()">
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Precio por unidad</mat-label>
+        <input matInput formControlName="precioUnidadCompra" type="number" (change)="calculatePriceTotal()">
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Precio de la compra</mat-label>
+        <input matInput formControlName="precioTotalCompra" type="number" readonly>
+      </mat-form-field>
+      <button mat-raised-button color="primary" matTooltip="Añadir articulos que vienen en esta factura"
+        (click)="addArticulo()">
+        <mat-icon>add</mat-icon>
+      </button>
+    </mat-grid-list>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button mat-dialog-close>Cerrar</button>
+  <button mat-raised-button color="primary" (click)="createFactura()">Crear</button>
+</div>

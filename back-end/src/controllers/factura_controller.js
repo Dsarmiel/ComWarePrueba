@@ -22,7 +22,7 @@ class FacturaController {
     }
     async getByFilter(req, res, next){
         try {
-            const facturaList = await facturaRepository.getByFilter(req.body);
+            const facturaList = await facturaRepository.getByFilter(req.query);
             res.json(facturaList);
         } catch (error) {
             next(error);

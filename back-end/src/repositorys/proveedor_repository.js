@@ -6,7 +6,6 @@ class ProveedorRepository {
         try {
             const pool = await poolDB;
             const result = await pool.request().query("SELECT * FROM proveedores");
-            console.log(result)
             return result.recordset.map((row) => new Proveedor(row));
         } catch (error) {
             throw error;
@@ -70,7 +69,6 @@ class ProveedorRepository {
     }
     async update(id, proveedor) {
         try {
-            console.log(proveedor)
             const pool = await poolDB;
             const result = await pool
                 .request()

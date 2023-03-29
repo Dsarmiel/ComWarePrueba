@@ -9,13 +9,15 @@ class FacturaRepository {
             const pool = await poolDB;
             const query = `
             SELECT  rf.*, 
-            JSON_OBJECT('id', pr.id_proveedor, 'nombre', pr.nombre) as proveedor,
-            JSON_OBJECT('id', ar.id_articulo, 'nombre', ar.nombre) as articulo
+            CONCAT('{ "id": "', CAST(pr.id_proveedor AS VARCHAR), '", "nombre": "', pr.nombre_proveedor, '" }') as proveedor, 
+            CONCAT('{ "id": "', CAST(ar.id_articulo AS VARCHAR), '", "nombre": "', ar.nombre_articulo, '" }') as articulo 
             FROM registro_facturacion rf
             INNER JOIN proveedores pr ON pr.id_proveedor = rf.id_proveedor
             INNER JOIN articulos ar ON ar.id_articulo = rf.id_articulo
             `;
             const result = await pool.request().query(query);
+            let facturacion = result.recordset.map((row) => new FacturacionDTO(row));
+            console.log(facturacion)
             return result.recordset.map((row) => new FacturacionDTO(row));
         } catch (error) {
             throw error;
@@ -26,12 +28,12 @@ class FacturaRepository {
             const pool = await poolDB;
             const query = `
             SELECT  rf.*, 
-            JSON_OBJECT('id', pr.id_proveedor, 'nombre', pr.nombre) as proveedor,
-            JSON_OBJECT('id', ar.id_articulo, 'nombre', ar.nombre) as articulo
+            CONCAT('{ "id": "', CAST(pr.id_proveedor AS VARCHAR), '", "nombre": "', pr.nombre_proveedor, '" }') as proveedor, 
+            CONCAT('{ "id": "', CAST(ar.id_articulo AS VARCHAR), '", "nombre": "', ar.nombre_articulo, '" }') as articulo 
             FROM registro_facturacion rf
             INNER JOIN proveedores pr ON pr.id_proveedor = rf.id_proveedor
             INNER JOIN articulos ar ON ar.id_articulo = rf.id_articulo
-            WHERE id_registro = @id_registro
+            WHERE rf.id_registro = @id_registro
             `;
             const result = await pool.request()
                 .input('id_registro', sql.Int, id)
@@ -45,52 +47,53 @@ class FacturaRepository {
     async getByFilter(filtrosDTO) {
         try {
             const pool = await poolDB;
-            const whereList = [];
+            let whereList = [];
             const filtros = new FacturacionFilterDTO(filtrosDTO);
-            const query = `
+            let query = `
             SELECT  rf.*, 
-            JSON_OBJECT('id', pr.id_proveedor, 'nombre', pr.nombre) as proveedor,
-            JSON_OBJECT('id', ar.id_articulo, 'nombre', ar.nombre) as articulo
+            CONCAT('{ "id": "', CAST(pr.id_proveedor AS VARCHAR), '", "nombre": "', pr.nombre_proveedor, '" }') as proveedor, 
+            CONCAT('{ "id": "', CAST(ar.id_articulo AS VARCHAR), '", "nombre": "', ar.nombre_articulo, '" }') as articulo 
             FROM registro_facturacion rf
             INNER JOIN proveedores pr ON pr.id_proveedor = rf.id_proveedor
             INNER JOIN articulos ar ON ar.id_articulo = rf.id_articulo
             `;
-            if (filtros.id_proveedor) {
-                whereList.push(`id_proveedor = '${filtros.id_proveedor}'`);
+            if (filtros.idProveedor) {
+                whereList.push(`rf.id_proveedor = ${filtros.idProveedor}`);
             }
-            if (filtros.id_articulo) {
-                whereList.push(`id_articulo = '${filtros.id_articulo}'`);
+            if (filtros.idArticulo) {
+                whereList.push(`rf.id_articulo = ${filtros.idArticulo}`);
             }
-            if (filtros.fecha_compra) {
-                whereList.push(`fecha_compra = '${filtros.fecha_compra}'`);
+            if (filtros.fechaCompra) {
+                whereList.push(`rf.fecha_compra = '${filtros.fechaCompra}'`);
             }
-            if (filtros.fecha_entrega) {
-                whereList.push(`fecha_entrega = '${filtros.fecha_entrega}'`);
+            if (filtros.fechaEntrega) {
+                whereList.push(`rf.fecha_entrega = '${filtros.fechaEntrega}'`);
             }
-            if (filtros.precio_unidad_compra) {
-                whereList.push(`precio_unidad_compra = '${filtros.precio_unidad_compra}'`);
+            if (filtros.precioUnidadCompra) {
+                whereList.push(`rf.precio_unidad_compra = ${filtros.precioUnidadCompra}`);
             }
-            if (filtros.precio_unidad_compra) {
-                whereList.push(`precio_unidad_compra = '${filtros.precio_unidad_compra}'`);
+            if (filtros.precioUnidadCompra) {
+                whereList.push(`rf.precio_unidad_compra = ${filtros.precioUnidadCompra}`);
             }
-            if (filtros.precio_total_compra) {
-                whereList.push(`precio_total_compra = '${filtros.precio_total_compra}'`);
+            if (filtros.precioTotalCompra) {
+                whereList.push(`rf.precio_total_compra = ${filtros.precioTotalCompra}`);
             }
-            if (filtros.cantidad_compra) {
-                whereList.push(`cantidad_compra = '${filtros.cantidad_compra}'`);
+            if (filtros.cantidadCompra) {
+                whereList.push(`rf.cantidad_compra = ${filtros.cantidadCompra}`);
             }
             if (whereList.length > 0) {
                 query += ` WHERE ${whereList.join(' AND ')}`;
             }
+            console.log(query)
             const result = await pool.request()
                 .query(query);
-            return result.recordset.map((row) => new Proveedor(row));
+            return result.recordset.map((row) => new FacturacionDTO(row));
         } catch (error) {
             throw error;
         }
     }
     async create(facturaToCreate) {
-        try{
+        try {
             const pool = await poolDB;
             const facturaCreate = new FacturacionCreateDTO(facturaToCreate);
             let valuesInsertFactura = await facturaCreate.articulos.map(articulo =>
@@ -101,26 +104,26 @@ class FacturaRepository {
                     ${articulo.cantidadCompra}
                 )`
             ).join(',');
-            let valuesInsertProveedorArticulo = await facturaCreate.articulos.map(articulo => `('${facturaCreate.idProveedor}, ${articulo.idArticulo})`).join(',');
+            let valuesInsertProveedorArticulo = await facturaCreate.articulos.map(articulo => `(${facturaCreate.idProveedor}, ${articulo.idArticulo})`).join(',');
             const queryFactura =
                 `INSERT INTO registro_facturacion 
                 (id_proveedor, id_articulo, fecha_compra, fecha_entrega, precio_unidad_compra, precio_total_compra, cantidad_compra) 
                 VALUES ${valuesInsertFactura}`;
-            const queryProveedorArticulo = 
-            `INSERT INTO proveedores_articulos  (id_proveedor, id_articulo) VALUES ${valuesInsertProveedorArticulo}`;
+            const queryProveedorArticulo =
+                `INSERT INTO proveedores_articulos  (id_proveedor, id_articulo) VALUES ${valuesInsertProveedorArticulo}`;
             let resultProveedorArticulo;
             const resultFactura = await pool.request().query(queryFactura)
-            .then(async ()=>{
-                resultProveedorArticulo = await pool.request().query(queryProveedorArticulo);
-            });
-            return resultFactura.recordset
-        }catch (error) {
+                .then(async () => {
+                    resultProveedorArticulo = await pool.request().query(queryProveedorArticulo);
+                });
+            return resultFactura
+        } catch (error) {
             throw error;
         }
 
     }
     async update(id, factura) {
-        try{
+        try {
             const facturaUpdate = new FacturacionUpdateDTO(factura);
             const result = await pool
                 .request()
@@ -144,7 +147,7 @@ class FacturaRepository {
                     WHERE id_registro = @id_registro`
                 );
             return result.recordset;
-        }catch(error){
+        } catch (error) {
             throw error;
         }
     }

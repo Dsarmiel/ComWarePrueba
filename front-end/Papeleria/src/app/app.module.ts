@@ -14,6 +14,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { CategoriaFormComponent } from './components/categorias/categoria-form/categoria-form.component';
 import { ArticuloFormComponent } from './components/articulos/articulo-form/articulo-form.component';
 import { ProveedorFormComponent } from './components/proveedores/proveedor-form/proveedor-form.component';
+import { FacturaFormComponent } from './components/facturas/factura-form/factura-form.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { ProveedorFormComponent } from './components/proveedores/proveedor-form/
     CategoriaFormComponent,
     ArticuloFormComponent,
     ProveedorFormComponent,
+    FacturaFormComponent,
   ],
   imports: [
     BrowserModule,

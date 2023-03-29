@@ -14,13 +14,13 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material/table';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
   imports: [CommonModule],
   exports: [
     MatDatepickerModule,
     MatButtonModule,
-    MatDatepickerModule,
     MatCardModule,
     MatCheckboxModule,
     MatDialogModule,
@@ -34,6 +34,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
     MatInputModule,
     MatTableModule,
     MatGridListModule,
+    MatNativeDateModule
   ],
 })
 export class AngularMaterialModule {}

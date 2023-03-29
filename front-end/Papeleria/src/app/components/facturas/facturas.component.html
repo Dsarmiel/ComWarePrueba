@@ -1,0 +1,102 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Administrador de facturas</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <div class="filter-container">
+      <form [formGroup]="formGroupFilter">
+        <mat-form-field appearance="fill">
+          <mat-label>Proveedores</mat-label>
+          <mat-select formControlName="idProveedor">
+            <mat-option value=""></mat-option>
+            <mat-option *ngFor="let proveedor of proveedorList" [value]="proveedor.idProveedor">
+              {{ proveedor.nombreProveedor }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Articulos</mat-label>
+          <mat-select formControlName="idArticulo">
+            <mat-option value=""></mat-option>
+            <mat-option *ngFor="let articulos of articulosList" [value]="articulos.id_articulo">
+              {{ articulos.nombre_articulo }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Fecha compra</mat-label>
+          <input matInput [matDatepicker]="fechaCompraPicker" formControlName="fechaCompra">
+          <mat-datepicker-toggle matSuffix [for]="fechaCompraPicker"></mat-datepicker-toggle>
+          <mat-datepicker #fechaCompraPicker></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Fecha entrega</mat-label>
+          <input matInput [matDatepicker]="fechaEntregaPicker" formControlName="fechaEntrega">
+          <mat-datepicker-toggle matSuffix [for]="fechaEntregaPicker"></mat-datepicker-toggle>
+          <mat-datepicker #fechaEntregaPicker></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Precio por unidad</mat-label>
+          <input matInput formControlName="precioUnidadCompra" type="number">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Precio de la compra</mat-label>
+          <input matInput formControlName="precioTotalCompra" type="number">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Cantidad de articulos comprados</mat-label>
+          <input matInput formControlName="cantidadCompra" type="number">
+        </mat-form-field>
+        <div class="container-actions">
+          <button mat-raised-button color="primary" (click)="getFilter()">Buscar</button>
+          <button mat-raised-button color="primary" matTooltip="Crear una nueva factura"
+            (click)="openModalCreate()">Crear factura</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="table-container">
+      <table mat-table [dataSource]="facturaList" class="mat-elevation-z8">
+        <ng-container matColumnDef="fecha_compra">
+          <th mat-header-cell *matHeaderCellDef> Fecha de compra </th>
+          <td mat-cell *matCellDef="let element"> {{element.fecha_compra | date }} </td>
+        </ng-container>
+        <ng-container matColumnDef="fecha_entrega">
+          <th mat-header-cell *matHeaderCellDef> Fecha de entrega </th>
+          <td mat-cell *matCellDef="let element"> {{element.fecha_entrega| date }} </td>
+        </ng-container>
+        <ng-container matColumnDef="precio_unidad_compra">
+          <th mat-header-cell *matHeaderCellDef> Precio por unidad </th>
+          <td mat-cell *matCellDef="let element"> {{element.precio_unidad_compra | currency:"COP"}} </td>
+        </ng-container>
+        <ng-container matColumnDef="precio_total_compra">
+          <th mat-header-cell *matHeaderCellDef> Precio total de la compra </th>
+          <td mat-cell *matCellDef="let element"> {{element.precio_total_compra| currency:"COP"}} </td>
+        </ng-container>
+        <ng-container matColumnDef="cantidad_compra">
+          <th mat-header-cell *matHeaderCellDef> Cantidad de unidades compradas </th>
+          <td mat-cell *matCellDef="let element"> {{ element.cantidad_compra }} </td>
+        </ng-container>
+        <ng-container matColumnDef="proveedor">
+          <th mat-header-cell *matHeaderCellDef> Proveedor </th>
+          <td mat-cell *matCellDef="let element"> {{ element.proveedor.nombre }} </td>
+        </ng-container>
+        <ng-container matColumnDef="articulo">
+          <th mat-header-cell *matHeaderCellDef> Articulo </th>
+          <td mat-cell *matCellDef="let element"> {{ element.articulo.nombre }} </td>
+        </ng-container>
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef> Acciones </th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-raised-button color="primary" matTooltip="Editar una factura existente"
+              (click)="openModalUpdate(element)">
+              <mat-icon>edit</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+  </mat-card-content>
+</mat-card>

@@ -15,8 +15,8 @@ class FacturacionDTO {
         this.precio_unidad_compra = precio_unidad_compra;
         this.precio_total_compra = precio_total_compra;
         this.cantidad_compra = cantidad_compra
-        this.proveedor = proveedor;
-        this.articulo = articulo;
+        this.proveedor = JSON.parse(proveedor);
+        this.articulo = JSON.parse(articulo);
     }
     get getIdRegistro() {
         return this.id_registro;
