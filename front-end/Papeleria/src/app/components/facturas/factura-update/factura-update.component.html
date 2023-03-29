@@ -1,0 +1,53 @@
+<h1 mat-dialog-title>Actualizar factura</h1>
+<div mat-dialog-content>
+  <form [formGroup]="formGroup">
+    <mat-grid-list cols="2" rowHeight="2:1">
+      <mat-form-field appearance="fill">
+        <mat-label>Proveedores</mat-label>
+        <mat-select formControlName="idProveedor">
+          <mat-option value=""></mat-option>
+          <mat-option *ngFor="let proveedor of proveedorList" [value]="proveedor.idProveedor">
+            {{ proveedor.nombreProveedor }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Articulos</mat-label>
+        <mat-select formControlName="idArticulo">
+          <mat-option value=""></mat-option>
+          <mat-option *ngFor="let articulos of articulosList" [value]="articulos.id_articulo">
+            {{ articulos.nombre_articulo }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Fecha compra</mat-label>
+        <input matInput [matDatepicker]="fechaCompraPicker" formControlName="fechaCompra">
+        <mat-datepicker-toggle matSuffix [for]="fechaCompraPicker"></mat-datepicker-toggle>
+        <mat-datepicker #fechaCompraPicker></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Fecha entrega</mat-label>
+        <input matInput [matDatepicker]="fechaEntregaPicker" formControlName="fechaEntrega">
+        <mat-datepicker-toggle matSuffix [for]="fechaEntregaPicker"></mat-datepicker-toggle>
+        <mat-datepicker #fechaEntregaPicker></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Precio por unidad</mat-label>
+        <input matInput formControlName="precioUnidadCompra" type="number">
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Precio de la compra</mat-label>
+        <input matInput formControlName="precioTotalCompra" type="number">
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Cantidad de articulos comprados</mat-label>
+        <input matInput formControlName="cantidadCompra" type="number">
+      </mat-form-field>
+    </mat-grid-list>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button mat-dialog-close>Cerrar</button>
+  <button mat-raised-button color="primary" (click)="updateFactura()">Actualizar</button>
+</div>

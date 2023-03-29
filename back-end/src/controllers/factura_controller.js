@@ -42,7 +42,7 @@ class FacturaController {
             if (!facturaFind) {
                 res.status(404).json({ mensaje: 'Factura no encontrado' });
             }
-            const facturaList = await facturaRepository.update(req.body);
+            const facturaList = await facturaRepository.update(req.params.id, req.body);
             res.json(facturaList);
         } catch (error) {
             next(error);

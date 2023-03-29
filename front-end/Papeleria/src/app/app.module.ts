@@ -15,6 +15,7 @@ import { CategoriaFormComponent } from './components/categorias/categoria-form/c
 import { ArticuloFormComponent } from './components/articulos/articulo-form/articulo-form.component';
 import { ProveedorFormComponent } from './components/proveedores/proveedor-form/proveedor-form.component';
 import { FacturaFormComponent } from './components/facturas/factura-form/factura-form.component';
+import { FacturaUpdateComponent } from './components/facturas/factura-update/factura-update.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { FacturaFormComponent } from './components/facturas/factura-form/factura
     ArticuloFormComponent,
     ProveedorFormComponent,
     FacturaFormComponent,
+    FacturaUpdateComponent,
   ],
   imports: [
     BrowserModule,

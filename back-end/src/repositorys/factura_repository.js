@@ -124,16 +124,17 @@ class FacturaRepository {
     }
     async update(id, factura) {
         try {
+            const pool = await poolDB;
             const facturaUpdate = new FacturacionUpdateDTO(factura);
             const result = await pool
                 .request()
                 .input('id_proveedor', sql.Int, facturaUpdate.idProveedor)
-                .input('id_articulo', sql.Int, articulo.idArticulo)
-                .input('fecha_compra', sql.Date, articulo.fechaCompra)
-                .input('fecha_entrega', sql.Date, articulo.fechaEntrega)
-                .input('precio_unidad_compra', sql.Decimal, precioUnidadCompra)
-                .input('precio_total_compra', sql.Decimal, precioTotalCompra)
-                .input('cantidad_compra', sql.Int, cantidadCompra)
+                .input('id_articulo', sql.Int, facturaUpdate.idArticulo)
+                .input('fecha_compra', sql.Date, facturaUpdate.fechaCompra)
+                .input('fecha_entrega', sql.Date, facturaUpdate.fechaEntrega)
+                .input('precio_unidad_compra', sql.Decimal, facturaUpdate.precioUnidadCompra)
+                .input('precio_total_compra', sql.Decimal, facturaUpdate.precioTotalCompra)
+                .input('cantidad_compra', sql.Int, facturaUpdate.cantidadCompra)
                 .input('id_registro', sql.Int, id)
                 .query(
                     `UPDATE registro_facturacion SET 
@@ -143,7 +144,7 @@ class FacturaRepository {
                     fecha_entrega = @fecha_entrega,
                     precio_unidad_compra = @precio_unidad_compra,
                     precio_total_compra = @precio_total_compra,
-                    cantidad_compra = @cantidad_compra,
+                    cantidad_compra = @cantidad_compra
                     WHERE id_registro = @id_registro`
                 );
             return result.recordset;

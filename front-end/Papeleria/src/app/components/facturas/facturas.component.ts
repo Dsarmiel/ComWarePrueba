@@ -11,6 +11,7 @@ import { ArticulosService } from 'src/app/services/articulos.service';
 import { FacturasService } from 'src/app/services/facturas.service';
 import { ProveedoresService } from 'src/app/services/proveedores.service';
 import { FacturaFormComponent } from './factura-form/factura-form.component';
+import { FacturaUpdateComponent } from './factura-update/factura-update.component';
 
 @Component({
   selector: 'app-facturas',
@@ -66,16 +67,20 @@ export class FacturasComponent implements OnInit {
         disableClose: true,
       })
       .afterClosed()
-      .subscribe(() => {});
+      .subscribe(() => {
+        this.getAllFacturas()
+      });
   }
-  openModalUpdate(articulo: Articulo) {
+  openModalUpdate(factura: FacturacionDTO) {
     this._dialog
-      .open(FacturaFormComponent, {
-        data: articulo,
+      .open(FacturaUpdateComponent, {
+        data: factura,
         width: '1050px',
       })
       .afterClosed()
-      .subscribe(() => {});
+      .subscribe(() => {
+        this.getAllFacturas()
+      });
   }
   getAllArticulos() {
     this._articulosService.getAll().subscribe(

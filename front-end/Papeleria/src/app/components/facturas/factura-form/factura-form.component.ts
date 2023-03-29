@@ -62,7 +62,6 @@ export class FacturaFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.initComponent();
-    console.log(this.table);
   }
 
   initComponent() {
